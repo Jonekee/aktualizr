@@ -885,9 +885,11 @@ result::Download SotaUptaneClient::downloadImages(const std::vector<Uptane::Targ
       sendEvent<event::AllDownloadsComplete>(result);
       return result;
     }
-  }
-  for (auto it = targets.cbegin(); it != targets.cend(); ++it) {
-    auto res = downloadImage(*it);
+    auto target = *it;
+    if (target.uri().empty() && !images_target->uri().empty()) {
+      target.setUri(images_target->uri());
+    }
+    auto res = downloadImage(target);
     if (res.first) {
       downloaded_targets.push_back(res.second);
     }

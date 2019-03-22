@@ -240,6 +240,7 @@ class Target {
   uint64_t length() const { return length_; }
   bool IsValid() const { return valid; }
   std::string uri() const { return uri_; };
+  void setUri(std::string uri) { uri_ = std::move(uri); };
 
   bool MatchWith(const Hash &hash) const;
 
